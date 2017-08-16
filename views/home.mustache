@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible"
+    content="ie=edge">
+  <title>Todo List</title>
+</head>
+
+<body style="text-align:center;">
+
+  <h1>Enter Something Todo:</h1>
+
+This portion is for entering a To do
+<div class="form">
+  <form action="/todo"    
+    method="post">
+    <label for="todo">To Do</label>
+    <input id="nameInput"
+      type="text"
+      name="name"
+     <br>
+    <button type="submit">Add To Do</button>
+  </form>
+  </div>
+At this point, something needs to take this data and place it into an todoArray
+
+This portion is for marking todos completed, this information is displayed from the array
+and can be clicked upon to move it into the completed array 
+    <div class="todos">
+    <h2>Get things done!</h2>
+        {{#todo}}
+        <p>{{name}}</p>
+       <form action="/complete" method="post">
+        <button type="submit" name="name" value="{{name}}">Mark Complete</button>
+        </form>
+        {{/todo}}
+    </div>
+
+This portion is for placing completed items back into the page
+<div class="completed">
+  <body style="text-align:center;">
+  <h2>Completed Tasks</h2>
+  <br>
+  
+  {{#markoff}}
+  <p>{{name}}</p>
+  {{/markoff}}
+ 
+  <br>
+  </div>
+</body>
+
+</html>
