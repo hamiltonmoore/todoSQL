@@ -12,7 +12,7 @@ let user; // I don't have a DB so I'm just making a global var.
 app.engine("mustache", mustacheExpress());
 app.set("views", "./views");
 app.set("view engine", "mustache");
-
+app.use(express.static(path.join(__dirname, "./public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", function (req, res) {
@@ -23,23 +23,45 @@ app.get("/", function (req, res) {
 //     res.render('home', { todo: data.markoff });  //the key matches whats in mustache
 // });
 
-app.post("/todo", function (req, res) {
+// app.post("/todo", function (req, res) {
+//     let newTodo = req.body;
+//     newTodo.completed = false;
+//     data.todo.push(newTodo);
+//     console.log('req.body: ', req.body);
+//     console.log("postroute::", data);
+//     return res.redirect('/');
+// })
+
+// app.post("/complete", function (req, res) {
+//     let completeTodo = req.body;
+//     completeTodo.markoff = true;
+//     data.markoff.push(completeTodo);
+//     console.log('req.body: ', req.body);
+//     console.log("postroute::", data);
+//     return res.redirect('/');
+// })
+
+app.get("/", (req, res) => {
+    res.render("todo", { todo: data.todo, markoff: data.markoff });
+});
+
+app.post("/complete/:name", (req, res) => {
+    let task = req.params.task;
+    let index = data.todo.findIndex(function (item) { return item.task === task });
+    let targetTodo = data.todo[index];
+    targetTodo.completed = !targetTodo.completed;
+    data.markoff.push(targetTodo);
+    data.todo.splice(index, 1);
+    console.log('todos: ', data.todo, data.markoff);
+    return res.redirect("/");
+});
+
+app.post("/todo", (req, res) => {
     let newTodo = req.body;
     newTodo.completed = false;
     data.todo.push(newTodo);
-    console.log('req.body: ', req.body);
-    console.log("postroute::", data);
-    return res.redirect('/');
-})
-
-app.post("/complete", function (req, res) {
-    let completeTodo = req.body;
-    completeTodo.markoff = true;
-    data.markoff.push(completeTodo);
-    console.log('req.body: ', req.body);
-    console.log("postroute::", data);
-    return res.redirect('/');
-})
+    return res.redirect("/");
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

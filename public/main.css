@@ -1,0 +1,26 @@
+body {
+    background-color: gray;
+}
+
+.container {
+    display: flex;
+    align-content: center;
+}
+
+.form {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.todo {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.completed {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}

@@ -3,34 +3,50 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible"
-    content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Todo List</title>
+  <link rel="stylesheet" href="/css/main.css">
 </head>
 
 <body style="text-align:center;">
+  <div class="container">
+    <h1>Enter Something Todo:</h1>
 
-  <h1>Enter Something Todo:</h1>
+    <!-- This portion is for entering a To do -->
+    <div class="form">
+      <form action="/todo" method="post">
+        <label for="todo">To Do</label>
+        <input id="nameInput" type="text" name="name">
+        <br>
+        <button type="submit">Add To Do</button>
+      </form>
+    </div>
+    <!-- At this point, something needs to take this data and place it into an todoArray -->
 
-This portion is for entering a To do
-<div class="form">
-  <form action="/todo"    
-    method="post">
-    <label for="todo">To Do</label>
-    <input id="nameInput"
-      type="text"
-      name="name"
-     <br>
-    <button type="submit">Add To Do</button>
-  </form>
+    <section class="todo">
+      {{#todo}}
+      <form action="/complete/{{name}}" method="post">
+        <button class="complete" type="checkbox" name="name" value="{{name}}">Mark as Complete</button> <span> {{name}}</span>
+      </form>
+      <br> {{/todo}}
+    </section>
+
+    <section class="completed">
+      <h1>Completed</h1>
+      {{#markoff}}
+      <p style="text-decoration: line-through">
+        {{name}}
+      </p>
+      {{/markoff}}
+    </section>
   </div>
-At this point, something needs to take this data and place it into an todoArray
+</body>
 
-This portion is for marking todos completed, this information is displayed from the array
-and can be clicked upon to move it into the completed array 
-    <div class="todos">
+</html>
+<!-- This portion is for marking todos completed, this information is displayed from the array -->
+<!-- and can be clicked upon to move it into the completed array  -->
+<!-- <div class="todos">
     <h2>Get things done!</h2>
         {{#todo}}
         <p>{{name}}</p>
@@ -55,3 +71,4 @@ This portion is for placing completed items back into the page
 </body>
 
 </html>
+ -->
