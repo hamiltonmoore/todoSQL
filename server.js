@@ -12,6 +12,7 @@ let user; // I don't have a DB so I'm just making a global var.
 app.engine("mustache", mustacheExpress());
 app.set("views", "./views");
 app.set("view engine", "mustache");
+const models = require("./models");
 app.use(express.static(path.join(__dirname, "./public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -40,6 +41,18 @@ app.get("/", function (req, res) {
 //     console.log("postroute::", data);
 //     return res.redirect('/');
 // })
+
+//sequelize
+
+models.todos.findOne().then(function (todos) {
+    console.log(todos);
+})
+
+const todo = models.Todo.build({
+    title: 'Finish writing learning objective',
+    description: 'Sequelize has a lot of concepts to learn',
+    deadline: new Date()
+});
 
 app.get("/", (req, res) => {
     res.render("todo", { todo: data.todo, markoff: data.markoff });
