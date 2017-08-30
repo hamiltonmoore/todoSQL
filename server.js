@@ -48,11 +48,17 @@ models.todos.findOne().then(function (todos) {
     console.log(todos);
 })
 
-const todo = models.Todo.build({
-    title: 'Finish writing learning objective',
-    description: 'Sequelize has a lot of concepts to learn',
-    deadline: new Date()
+const todo = models.todos.build(
+    {
+        task: req.body.task,
+        completed: false
+    });
+
+todo.save().then(function (todo) {
+    console.log('name is: ', newPerson.name, ' zip = ', newPerson.zip);
 });
+
+//ending sequelization //begin routes 
 
 app.get("/", (req, res) => {
     res.render("todo", { todo: data.todo, markoff: data.markoff });
