@@ -32,6 +32,9 @@
       <form action="/deleteindividual/{{task}}" method="post">
       <button type="submit">Delete</button>
       </form>
+      <form action="/edit/{{task}}" method="post">
+      <input type="text" name="task" placeholder="edit here + enter">
+      </form> 
       <span>{{task}}</span>
       <br> {{/completed}}{{/todo}}
     </section>

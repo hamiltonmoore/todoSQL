@@ -61,7 +61,6 @@ app.post("/complete/:task", (req, res) => {
         })
 });
 
-
 app.post("/todo", (req, res) => {
     const todo = models.todos.build(
         {
@@ -95,6 +94,21 @@ app.post("/deleteindividual/:task", (req, res) => {
         return res.redirect("/");
     })
 });
+
+//this is to update a task
+app.post("/edit/:task", (req, res) => {
+    let reqTask = req.params.task;
+    models.todos.update({
+        task: req.body.task
+    }, {
+            where: {
+                task: reqTask
+            } //works on the task you were just working on 
+        }).then(function () {
+            res.redirect("/");
+        })
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
