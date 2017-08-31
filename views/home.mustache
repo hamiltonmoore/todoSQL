@@ -16,7 +16,7 @@
     <!-- This portion is for entering a To do -->
     <div class="form">
       <form action="/todo" method="post">
-        <input id="nameInput" type="text" name="name">
+        <input id="nameInput" type="text" name="task" required>
         <br>
         <button type="submit">Add To Do</button>
       </form>
@@ -25,20 +25,27 @@
 
     <section class="todo">
     <h1>To do:</h1>
-      {{#todo}}
-      <form action="/complete/{{name}}" method="post">
-        <button class="complete" type="checkbox" name="name" value="{{name}}">Mark as Complete</button> <span> {{name}}</span>
+      {{#todo}}{{^completed}}
+      <form action="/complete/{{task}}" method="post">
+        <button class="complete" type="checkbox" name="task" value="{{task}}">Mark as Complete</button>
       </form>
-      <br> {{/todo}}
+      <form action="/deleteindividual/{{task}}" method="post">
+      <button type="submit">Delete</button>
+      </form>
+      <span>{{task}}</span>
+      <br> {{/completed}}{{/todo}}
     </section>
 
     <section class="completed">
       <h1>Completed</h1>
-      {{#markoff}}
+      <form action="/deleteallcompleted" method="post">
+      <button type="submit">Delete</button>
+      </form>
+      {{#todo}}{{#completed}}
       <p style="text-decoration: line-through">
-        {{name}}
+        {{task}}
       </p>
-      {{/markoff}}
+    {{/completed}}{{/todo}}
     </section>
   </div>
 </body>
