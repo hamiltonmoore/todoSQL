@@ -13,43 +13,9 @@ const models = require("./models");
 app.use(express.static(path.join(__dirname, "./public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.get("/", function (req, res) {
-//     res.render('home', { todo: data.todo, markoff: data.markoff });  //the key matches whats in mustache
-// });
-
-// app.get("/", function (req, res) {
-//     res.render('home', { todo: data.markoff });  //the key matches whats in mustache
-// });
-
-// app.post("/todo", function (req, res) {
-//     let newTodo = req.body;
-//     newTodo.completed = false;
-//     data.todo.push(newTodo);
-//     console.log('req.body: ', req.body);
-//     console.log("postroute::", data);
-//     return res.redirect('/');
-// })
-
-// app.post("/complete", function (req, res) {
-//     let completeTodo = req.body;
-//     completeTodo.markoff = true;
-//     data.markoff.push(completeTodo);
-//     console.log('req.body: ', req.body);
-//     console.log("postroute::", data);
-//     return res.redirect('/');
-// })
-
-//sequelize
-// models.todos.findOne().then(function (todos) {
-//     console.log(todos);
-// })
-
-
-//ending sequelization //begin routes 
-
 app.get("/", (req, res) => {
     models.todos.findAll().then(function (foundTodos) {
-        res.render("home", { todo: foundTodos }); //todo because of mustache
+        res.render("home", { todo: foundTodos });
     });
 });
 
@@ -103,7 +69,7 @@ app.post("/edit/:task", (req, res) => {
     }, {
             where: {
                 task: reqTask
-            } //works on the task you were just working on 
+            }
         }).then(function () {
             res.redirect("/");
         })
@@ -112,7 +78,3 @@ app.post("/edit/:task", (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
-
-//req and res must be in that order 
-//
